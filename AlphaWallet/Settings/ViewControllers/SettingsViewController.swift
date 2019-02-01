@@ -9,6 +9,7 @@ import MessageUI
 protocol SettingsViewControllerDelegate: class, CanOpenURL {
     func didAction(action: AlphaWalletSettingsAction, in viewController: SettingsViewController)
     func assetDefinitionsOverrideViewController(for: SettingsViewController) -> UIViewController?
+    func tbmlOverrideViewController(for: SettingsViewController) -> UIViewController?
 }
 
 class SettingsViewController: FormViewController {
@@ -120,6 +121,20 @@ class SettingsViewController: FormViewController {
             cell.imageView?.tintColor = Colors.appBackground
         }.cellUpdate { cell, _ in
             cell.textLabel?.text = "    \(R.string.localizable.aHelpAssetDefinitionOverridesTitle())"
+            cell.accessoryType = .disclosureIndicator
+        }
+        <<< AppFormAppearance.alphaWalletSettingsButton { row in
+            row.cellStyle = .value1
+            row.presentationMode = .show(controllerProvider: ControllerProvider<UIViewController>.callback {
+                self.delegate?.tbmlOverrideViewController(for: self) ?? UIViewController()
+            }, onDismiss: { _ in
+            })
+        }.cellSetup { cell, _ in
+            cell.imageView?.tintColor = Colors.appBackground
+        }.cellUpdate { cell, _ in
+            //hhh localize
+//            cell.textLabel?.text = "    \(R.string.localizable.aHelpAssetDefinitionOverridesTitle())"
+            cell.textLabel?.text = "    TBML Overrides"
             cell.accessoryType = .disclosureIndicator
         }
 

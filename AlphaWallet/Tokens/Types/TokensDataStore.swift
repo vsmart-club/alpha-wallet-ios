@@ -76,6 +76,10 @@ class TokensDataStore {
         return realm.objects(TokenObject.self)
                 .sorted(byKeyPath: "contract", ascending: true)
                 .filter { !$0.isDisabled }
+                //hhh remove
+//                .filter { $0.contract.sameContract(as: "0xd8e5f58de3933e1e35f9c65eb72cb188674624f3") } //ticket
+//                .filter { $0.contract.sameContract(as: "0xf018225735f70a1961B6B8aa07B005e6392072E7") } //spawnable meetup
+                .filter { $0.contract.sameContract(as: "0xd8e5f58de3933e1e35f9c65eb72cb188674624f3") || $0.contract.sameContract(as: "0xf018225735f70a1961B6B8aa07B005e6392072E7") || $0.contract.sameContract(as: "0x0000000000000000000000000000000000000000") }
     }
 
     var deletedContracts: [DeletedContract] {

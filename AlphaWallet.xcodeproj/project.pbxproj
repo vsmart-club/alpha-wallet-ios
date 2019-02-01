@@ -287,6 +287,7 @@
 		5E7C731D0F6128BE8885A2D3 /* ServersCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7C7B8FD1E2BCC325DF4EE4 /* ServersCoordinator.swift */; };
 		5E7C732BD09AABEEE6096BF4 /* ServersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7C74C0C1803DD17FE9EBA7 /* ServersViewController.swift */; };
 		5E7C733638D7596F93DEE2A9 /* OnboardingCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7C75CE3F1D6B7993E7A840 /* OnboardingCollectionViewController.swift */; };
+		5E7C733F40EC11BC694308DE /* TbmlStoreCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7C789A0E8E4CCA2921B781 /* TbmlStoreCoordinator.swift */; };
 		5E7C7364BF4F6EC3F15804C2 /* GetIsERC721Encode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7C7CA7D65743AEE3411F3A /* GetIsERC721Encode.swift */; };
 		5E7C7376B566E5A59CC8F463 /* ImportMagicTokenViewControllerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7C72D0E7CA03ADE5CFAE7A /* ImportMagicTokenViewControllerViewModel.swift */; };
 		5E7C73CA81FB2CE9BCAFC992 /* CallForAssetAttribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7C787CA216AFED8023A35F /* CallForAssetAttribute.swift */; };
@@ -294,8 +295,8 @@
 		5E7C73FD5BD75D90C8D0EF3C /* WalletFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7C7C58586099F082973073 /* WalletFilterView.swift */; };
 		5E7C7402B29A987B0AF7061D /* VerifiableStatusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7C7CC48CA7A1EA7D539C87 /* VerifiableStatusViewController.swift */; };
 		5E7C741353DDF87133054FCC /* DeletedContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7C72BEB789700C49FF64A6 /* DeletedContract.swift */; };
+		5E7C741803307DBB7B163945 /* TbmlBackingStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7C71A4C995D7CA70F53DB3 /* TbmlBackingStore.swift */; };
 		5E7C741CA88EFAC66756DE7F /* EditMyDappViewControllerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7C776B129861728FFB8CC8 /* EditMyDappViewControllerViewModel.swift */; };
-		5E7C74201EE22721F7F74B50 /* TokensCardViewControllerHeaderViewModelWithIntroduction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7C71AD6113117362870CC5 /* TokensCardViewControllerHeaderViewModelWithIntroduction.swift */; };
 		5E7C742DDE5C63804A2C420D /* Collection+UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7C7914F01B5FEA5B20398B /* Collection+UIView.swift */; };
 		5E7C74438E1FBF28ADFAFAD1 /* BaseTokenCardTableViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7C7AD33AC8BE19F5C66489 /* BaseTokenCardTableViewCellViewModel.swift */; };
 		5E7C744B0282FD7B3A29AA7B /* ScriptMessageProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7C708DE897B6677EAD769B /* ScriptMessageProxy.swift */; };
@@ -329,6 +330,7 @@
 		5E7C75D46140FACBD12333BF /* EthTokenViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7C7EE374A74F2B00013C18 /* EthTokenViewCell.swift */; };
 		5E7C75E5C64619ABFD246183 /* TransferTokensCardViaWalletAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7C78B63FDE2FAF25389260 /* TransferTokensCardViaWalletAddressViewController.swift */; };
 		5E7C75E81F85353844CACECC /* EnterSellTokensCardPriceQuantityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7C7F610139D24D947B1625 /* EnterSellTokensCardPriceQuantityViewController.swift */; };
+		5E7C75E83AD88D028E22F6AD /* TbmlDiskBackingStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7C78A3D317D8E174FA085A /* TbmlDiskBackingStore.swift */; };
 		5E7C75F80A7E178B49830BCD /* TokenCardsViewControllerHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7C796039C0F47CDCA236C0 /* TokenCardsViewControllerHeader.swift */; };
 		5E7C760D5AF93B79BB9BDB5A /* OpenSeaNonFungibleTokenAttributeCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7C7C34A7BDCFE17CEF8F79 /* OpenSeaNonFungibleTokenAttributeCellViewModel.swift */; };
 		5E7C760F9D7C178E17C75C52 /* ImportTokenViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7C7487BDF72352446E1266 /* ImportTokenViewControllerTests.swift */; };
@@ -346,13 +348,13 @@
 		5E7C76A50F321F8A0A0005EB /* ABIValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7C7318B6059C18BE87ECAE /* ABIValue.swift */; };
 		5E7C76B7DDF7BB124B12A738 /* DappButtonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7C754BF8B4CC2DA82B1025 /* DappButtonViewModel.swift */; };
 		5E7C76B917517C93D1E26B0A /* LockEnterPasscodeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7C7981AB6584B25C72D46B /* LockEnterPasscodeCoordinator.swift */; };
+		5E7C76C8A983A91A82F646E5 /* TokenInstanceWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7C704499C81ACA3B08A752 /* TokenInstanceWebView.swift */; };
 		5E7C76D09352C069C140B6CF /* PreferencesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7C74D5CEC9A6C4483B1C77 /* PreferencesController.swift */; };
 		5E7C76D28BB14C7685296BEF /* DappsHomeEmptyViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7C74B424FB5DE3A4D6A2F4 /* DappsHomeEmptyViewViewModel.swift */; };
 		5E7C76E816E216D5C69D3D7B /* AssetDefinitionBackingStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7C7C963C42DE81F82732E5 /* AssetDefinitionBackingStore.swift */; };
 		5E7C76F8CB67466725C590CE /* TokenViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7C79ED9F842D3FC102AC54 /* TokenViewCellViewModel.swift */; };
 		5E7C7705B09D780E84E2FDA5 /* XMLHandlerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7C702300BB7DB0FD7788EF /* XMLHandlerTest.swift */; };
 		5E7C7719948721FE9120B5B2 /* PeekOpenSeaNonFungibleTokenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7C77B790551456E111ED4F /* PeekOpenSeaNonFungibleTokenViewController.swift */; };
-		5E7C772209964C7A4B5342E6 /* TokenCardsViewControllerHeaderWithIntroduction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7C7301915D3DEC6ABF405E /* TokenCardsViewControllerHeaderWithIntroduction.swift */; };
 		5E7C772EC476993A170C840B /* GenerateSellMagicLinkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7C7892A9FC3F53B13498D9 /* GenerateSellMagicLinkViewController.swift */; };
 		5E7C773E3E3BBEB65C51DF2A /* UIStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7C7D2C43C15D0762C7F374 /* UIStackView.swift */; };
 		5E7C774B5332AC0DC19C5B1B /* EthTokenViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7C74B82783A94091A43470 /* EthTokenViewCellViewModel.swift */; };
@@ -388,8 +390,8 @@
 		5E7C797BE2C8DB7EF6F217B3 /* OnboardingPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7C7103135DCCCAB96EE5FC /* OnboardingPage.swift */; };
 		5E7C79D78AA5E774119BE49B /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7C7CFDE7DEA8C06C4100AF /* TextField.swift */; };
 		5E7C79DE8864702C51C0A7CC /* ResultResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7C79FE0C70AC4198F2AEB7 /* ResultResult.swift */; };
-		5E7C79E9A6A3DFB7FA680752 /* DappViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7C793CDFA907BFDFECB6CB /* DappViewCell.swift */; };
 		5E7C79E89E5D9BAB41433ABE /* SendHeaderViewViewModelWithIntroduction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7C77A8710ADB45488DE4E9 /* SendHeaderViewViewModelWithIntroduction.swift */; };
+		5E7C79E9A6A3DFB7FA680752 /* DappViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7C793CDFA907BFDFECB6CB /* DappViewCell.swift */; };
 		5E7C79F30A324D75DF42DDDE /* SellTokensCardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7C7EB14E787BC019660389 /* SellTokensCardViewModel.swift */; };
 		5E7C7A0B5FDADC60DC01F060 /* CallSmartContractFunction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7C77C2844B3579A59C3F2F /* CallSmartContractFunction.swift */; };
 		5E7C7A205F8F66D8486FAD49 /* OpenSeaNonFungibleTokenCardTableViewCellWithCheckbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7C7F66EE7899E4573C64AE /* OpenSeaNonFungibleTokenCardTableViewCellWithCheckbox.swift */; };
@@ -420,6 +422,7 @@
 		5E7C7BCAB0CD58ACA37ED6A4 /* Dapps.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7C77A400E5145C04083FEB /* Dapps.swift */; };
 		5E7C7BDCB6A8279E1B8ADB59 /* TokenCardTableViewCellWithCheckbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7C7ECCB155D49910973F05 /* TokenCardTableViewCellWithCheckbox.swift */; };
 		5E7C7BFE9C8CAA3E204B1FAA /* TokenRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7C7F89E3480D3680750EA9 /* TokenRowView.swift */; };
+		5E7C7C0264061360470652D6 /* TbmlDiskBackingStoreWithOverrides.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7C7446898B1D8BCEE7FE45 /* TbmlDiskBackingStoreWithOverrides.swift */; };
 		5E7C7C0D3181CD31A581AEBE /* EditMyDappViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7C7F55495A6095B3E86248 /* EditMyDappViewController.swift */; };
 		5E7C7C0FAC500A6651E663FD /* TransferTokensCardQuantitySelectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7C703BA1D0E9ACB7399155 /* TransferTokensCardQuantitySelectionViewModel.swift */; };
 		5E7C7C0FBEF6206024FB355E /* ButtonsBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7C774238AE6861A7935EEE /* ButtonsBar.swift */; };
@@ -429,6 +432,7 @@
 		5E7C7C98EAF40E8110241DBD /* NonFungibleTokenViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7C783E3ADA4CF9554A0E7D /* NonFungibleTokenViewCell.swift */; };
 		5E7C7C9E89056069C8FEFA76 /* AlphaWalletSettingsSwitchRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7C7534FB6BF4D199643246 /* AlphaWalletSettingsSwitchRow.swift */; };
 		5E7C7CBB48D096078A2B233E /* AssetDefinitionInMemoryBackingStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7C7D07B7D0738A1832AB58 /* AssetDefinitionInMemoryBackingStore.swift */; };
+		5E7C7CC0EB37B6A109699B13 /* TbmlStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7C7655F132746208FFA358 /* TbmlStore.swift */; };
 		5E7C7CCA357CB7BF12E1F2B4 /* UIStackView+Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7C73ED9226646D562B5A3C /* UIStackView+Array.swift */; };
 		5E7C7CCC8D376C6E5C245715 /* EthCurrencyHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7C73DF5FBFE756097D32B1 /* EthCurrencyHelper.swift */; };
 		5E7C7CDE2814481CD7BC47AC /* PushNotificationsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7C7FC75FF544B1DF0B0D8B /* PushNotificationsCoordinator.swift */; };
@@ -863,6 +867,7 @@
 		5E7C702A684DF27DC8ED4E42 /* TokenObjectTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenObjectTest.swift; sourceTree = "<group>"; };
 		5E7C703366F010BFEF6B06C6 /* OpenSeaNonFungibleTokenViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenSeaNonFungibleTokenViewCell.swift; sourceTree = "<group>"; };
 		5E7C703BA1D0E9ACB7399155 /* TransferTokensCardQuantitySelectionViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransferTokensCardQuantitySelectionViewModel.swift; sourceTree = "<group>"; };
+		5E7C704499C81ACA3B08A752 /* TokenInstanceWebView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenInstanceWebView.swift; sourceTree = "<group>"; };
 		5E7C706658D72CC1C8BB698C /* BookmarkViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookmarkViewCell.swift; sourceTree = "<group>"; };
 		5E7C7070B0A3FFF303822DF4 /* AssetDefinitionsOverridesViewCellViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetDefinitionsOverridesViewCellViewModel.swift; sourceTree = "<group>"; };
 		5E7C708DE897B6677EAD769B /* ScriptMessageProxy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScriptMessageProxy.swift; sourceTree = "<group>"; };
@@ -879,7 +884,7 @@
 		5E7C7171B802C0C2718EEED0 /* MyDappsViewControllerHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyDappsViewControllerHeaderView.swift; sourceTree = "<group>"; };
 		5E7C7185AA9F93D4F0B67AF7 /* ABIEncoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ABIEncoder.swift; sourceTree = "<group>"; };
 		5E7C719FC57B89C2F24B9BA3 /* ContractERC721Transfer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContractERC721Transfer.swift; sourceTree = "<group>"; };
-		5E7C71AD6113117362870CC5 /* TokensCardViewControllerHeaderViewModelWithIntroduction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokensCardViewControllerHeaderViewModelWithIntroduction.swift; sourceTree = "<group>"; };
+		5E7C71A4C995D7CA70F53DB3 /* TbmlBackingStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TbmlBackingStore.swift; sourceTree = "<group>"; };
 		5E7C71C2C110B621EFDE336F /* TokensCardViewControllerTitleHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokensCardViewControllerTitleHeader.swift; sourceTree = "<group>"; };
 		5E7C71CE10548877F1124BF2 /* WelcomeViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeViewModel.swift; sourceTree = "<group>"; };
 		5E7C71E355BD14E975AF7491 /* TokensDataStoreTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokensDataStoreTest.swift; sourceTree = "<group>"; };
@@ -897,7 +902,6 @@
 		5E7C72D0E7CA03ADE5CFAE7A /* ImportMagicTokenViewControllerViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImportMagicTokenViewControllerViewModel.swift; sourceTree = "<group>"; };
 		5E7C72DDBF109139E4C661D5 /* DelegateContract.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DelegateContract.swift; sourceTree = "<group>"; };
 		5E7C72FBC0D2787AAA804098 /* OpenSeaNonFungibleTokenViewCellViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenSeaNonFungibleTokenViewCellViewModel.swift; sourceTree = "<group>"; };
-		5E7C7301915D3DEC6ABF405E /* TokenCardsViewControllerHeaderWithIntroduction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenCardsViewControllerHeaderWithIntroduction.swift; sourceTree = "<group>"; };
 		5E7C7318B6059C18BE87ECAE /* ABIValue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ABIValue.swift; sourceTree = "<group>"; };
 		5E7C731B6F01534683227123 /* NonFungibleTokenViewCellViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NonFungibleTokenViewCellViewModel.swift; sourceTree = "<group>"; };
 		5E7C7322ADC54452545C345A /* CallForAssetAttributeCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CallForAssetAttributeCoordinator.swift; sourceTree = "<group>"; };
@@ -920,6 +924,7 @@
 		5E7C7419F47CC8B2996AA8F9 /* TransferTokensCardQuantitySelectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransferTokensCardQuantitySelectionViewController.swift; sourceTree = "<group>"; };
 		5E7C74294562EB79EFCD3559 /* DiscoverDappCellViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscoverDappCellViewModel.swift; sourceTree = "<group>"; };
 		5E7C743172FCBDCD362C03A6 /* ImportWalletTabBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImportWalletTabBar.swift; sourceTree = "<group>"; };
+		5E7C7446898B1D8BCEE7FE45 /* TbmlDiskBackingStoreWithOverrides.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TbmlDiskBackingStoreWithOverrides.swift; sourceTree = "<group>"; };
 		5E7C7477E69BEDF0C4950D5A /* TokenListFormatTableViewCellWithCheckbox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenListFormatTableViewCellWithCheckbox.swift; sourceTree = "<group>"; };
 		5E7C7487BDF72352446E1266 /* ImportTokenViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImportTokenViewControllerTests.swift; sourceTree = "<group>"; };
 		5E7C74A1A13A1A6CB9E61BAC /* TokenListFormatRowViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenListFormatRowViewModel.swift; sourceTree = "<group>"; };
@@ -959,6 +964,7 @@
 		5E7C7646352F10C96B5FC6F6 /* HelpViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpViewCell.swift; sourceTree = "<group>"; };
 		5E7C764B98F526271E4C2A6A /* StaticHTMLViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StaticHTMLViewController.swift; sourceTree = "<group>"; };
 		5E7C76535DC145679D0C0286 /* Web3Swift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Web3Swift.swift; sourceTree = "<group>"; };
+		5E7C7655F132746208FFA358 /* TbmlStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TbmlStore.swift; sourceTree = "<group>"; };
 		5E7C765A9FA64E4CC1B6C726 /* OpenSeaNonFungibleTokenTraitCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenSeaNonFungibleTokenTraitCell.swift; sourceTree = "<group>"; };
 		5E7C765E0DC0174E9788CCF9 /* EnterSellTokensCardPriceQuantityViewControllerViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnterSellTokensCardPriceQuantityViewControllerViewModel.swift; sourceTree = "<group>"; };
 		5E7C767497AD8DEE83F384D7 /* RequestViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestViewModel.swift; sourceTree = "<group>"; };
@@ -989,6 +995,8 @@
 		5E7C784984649DD8E02B50B8 /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
 		5E7C787CA216AFED8023A35F /* CallForAssetAttribute.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CallForAssetAttribute.swift; sourceTree = "<group>"; };
 		5E7C7892A9FC3F53B13498D9 /* GenerateSellMagicLinkViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenerateSellMagicLinkViewController.swift; sourceTree = "<group>"; };
+		5E7C789A0E8E4CCA2921B781 /* TbmlStoreCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TbmlStoreCoordinator.swift; sourceTree = "<group>"; };
+		5E7C78A3D317D8E174FA085A /* TbmlDiskBackingStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TbmlDiskBackingStore.swift; sourceTree = "<group>"; };
 		5E7C78B001F9F95F404D5FEF /* HowDoIGetMyMoneyInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HowDoIGetMyMoneyInfoViewController.swift; sourceTree = "<group>"; };
 		5E7C78B61907C2C1E2BCD478 /* DappsHomeViewControllerViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DappsHomeViewControllerViewModel.swift; sourceTree = "<group>"; };
 		5E7C78B63FDE2FAF25389260 /* TransferTokensCardViaWalletAddressViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransferTokensCardViaWalletAddressViewController.swift; sourceTree = "<group>"; };
@@ -1789,7 +1797,7 @@
 				5E7C7ECCB155D49910973F05 /* TokenCardTableViewCellWithCheckbox.swift */,
 				5E7C74E29F4C16A074A62698 /* TokenViewControllerTransactionCell.swift */,
 				5E7C79C2CA884C78B24A97FB /* TokenViewControllerHeaderView.swift */,
-				5E7C7301915D3DEC6ABF405E /* TokenCardsViewControllerHeaderWithIntroduction.swift */,
+				5E7C704499C81ACA3B08A752 /* TokenInstanceWebView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1830,7 +1838,6 @@
 				5E7C74A1A13A1A6CB9E61BAC /* TokenListFormatRowViewModel.swift */,
 				5E7C76B386CFE74302944BB0 /* TokenViewControllerViewModel.swift */,
 				5E7C7B5838E12930000D5029 /* TokenViewControllerTransactionCellViewModel.swift */,
-				5E7C71AD6113117362870CC5 /* TokensCardViewControllerHeaderViewModelWithIntroduction.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -2796,6 +2803,7 @@
 			children = (
 				5E7C7A40B418A8F13AA16C29 /* AssetDefinitionStoreCoordinator.swift */,
 				5E7C736169A5251141791726 /* FetchAssetDefinitionsCoordinator.swift */,
+				5E7C789A0E8E4CCA2921B781 /* TbmlStoreCoordinator.swift */,
 			);
 			path = Coordinators;
 			sourceTree = "<group>";
@@ -2816,6 +2824,10 @@
 				5E7C7BAAD1ED0602597C9CF7 /* ViewControllers */,
 				5E7C704B061147F3D667FBAA /* Views */,
 				5E7C777241628358ECD6D268 /* ViewModels */,
+				5E7C7655F132746208FFA358 /* TbmlStore.swift */,
+				5E7C71A4C995D7CA70F53DB3 /* TbmlBackingStore.swift */,
+				5E7C7446898B1D8BCEE7FE45 /* TbmlDiskBackingStoreWithOverrides.swift */,
+				5E7C78A3D317D8E174FA085A /* TbmlDiskBackingStore.swift */,
 			);
 			path = AssetDefinition;
 			sourceTree = "<group>";
@@ -4106,10 +4118,15 @@
 				5E7C72EECA8154CEB7D9F46C /* ContainerViewWithShadow.swift in Sources */,
 				5E7C7C0FBEF6206024FB355E /* ButtonsBar.swift in Sources */,
 				76F1DA1D816C1D6759FAAB5D /* ClaimNativeCurrencyOrder.swift in Sources */,
-				5E7C772209964C7A4B5342E6 /* TokenCardsViewControllerHeaderWithIntroduction.swift in Sources */,
-				5E7C74201EE22721F7F74B50 /* TokensCardViewControllerHeaderViewModelWithIntroduction.swift in Sources */,
 				5E7C79E89E5D9BAB41433ABE /* SendHeaderViewViewModelWithIntroduction.swift in Sources */,
 				5E7C76348C56EDF82786F8C4 /* SendHeaderViewWithIntroduction.swift in Sources */,
+				5E7C76C8A983A91A82F646E5 /* TokenInstanceWebView.swift in Sources */,
+				5E7C7CC0EB37B6A109699B13 /* TbmlStore.swift in Sources */,
+				5E7C741803307DBB7B163945 /* TbmlBackingStore.swift in Sources */,
+				5E7C7C0264061360470652D6 /* TbmlDiskBackingStoreWithOverrides.swift in Sources */,
+				5E7C75E83AD88D028E22F6AD /* TbmlDiskBackingStore.swift in Sources */,
+				5E7C742DDE5C63804A2C420D /* Collection+UIView.swift in Sources */,
+				5E7C733F40EC11BC694308DE /* TbmlStoreCoordinator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

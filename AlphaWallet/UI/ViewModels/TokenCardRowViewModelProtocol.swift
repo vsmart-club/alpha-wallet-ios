@@ -15,6 +15,8 @@ protocol TokenCardRowViewModelProtocol {
     var numero: String { get }
     var onlyShowTitle: Bool { get }
     var isMeetupContract: Bool { get }
+    var tbmlHtmlString: String { get }
+    var hasTbml: Bool { get }
     func subscribeStreetLocalityStateCountry(withBlock block: @escaping (String) -> Void)
     func subscribeBuilding(withBlock block: @escaping (String) -> Void)
 }

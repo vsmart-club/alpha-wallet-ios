@@ -54,6 +54,21 @@ private class PrivateXMLHandler {
         }
     }
 
+    var tbmlHtmlString: String {
+        guard hasAssetDefinition else { return "" }
+
+        //hhh better to pass this in or keep a single instance?
+        let store = TbmlStore()
+        guard let xslt = store.tokenXslFromTbml(forContract: contractAddress) else { return "" }
+
+        //hhh but really aren't getting anything out of the asset definition, right?
+        guard let xmlData = xml.toXML?.data(using: .utf8) else { return "" }
+
+        //We really want `CYParsingDefaultOptions` but the compiler doesn't let us so we use `.init(rawValue: 0)`. Note that this is different from `[]`.
+        let source = CYDataInputSource(data: xmlData, options: .init(rawValue: 0))
+        return xslt.transform(toString: source, parameters: [:], error: nil)
+    }
+
     private lazy var xsltToSanitizeHtml: Data? = {
         //Stripping <html> also strips the <html> we had to wrap the content with when we sanitize
         return """
@@ -84,6 +99,12 @@ private class PrivateXMLHandler {
               """.data(using: .utf8)
     }()
 
+    lazy var fieldIdsAndNames: [String: String] = {
+        return Dictionary(uniqueKeysWithValues: fields.map { (id, attribute) in
+            return (id, attribute.name)
+        })
+    }()
+
     init(contract: String, assetDefinitionStore store: AssetDefinitionStore?) {
         contractAddress = contract.add0x.lowercased()
         let assetDefinitionStore = store ?? AssetDefinitionStore()
@@ -97,7 +118,7 @@ private class PrivateXMLHandler {
         isOfficial = assetDefinitionStore.isOfficial(contract: contract)
     }
 
-    func getToken(name: String, fromTokenId tokenBytes32: BigUInt, index: UInt16, config: Config, callForAssetAttributeCoordinator: CallForAssetAttributeCoordinator?) -> Token {
+    func getToken(name: String, symbol: String, fromTokenId tokenBytes32: BigUInt, index: UInt16, config: Config, callForAssetAttributeCoordinator: CallForAssetAttributeCoordinator?) -> Token {
         guard tokenBytes32 != 0 else { return .empty }
         var values = [String: AssetAttributeValue]()
         for (name, attribute) in fields {
@@ -109,6 +130,7 @@ private class PrivateXMLHandler {
                 id: tokenBytes32,
                 index: index,
                 name: name,
+                symbol: symbol,
                 status: .available,
                 values: values
         )
@@ -134,7 +156,7 @@ private class PrivateXMLHandler {
                       let originElement = XMLHandler.getOriginElement(fromAttributeTypeElement: each, namespacePrefix: rootNamespacePrefix, namespaces: namespaces),
                       originElement["contract"] == "holding-contract",
                       let functionElement = XMLHandler.getFunctionElement(fromOriginElement: originElement, namespacePrefix: rootNamespacePrefix, namespaces: namespaces) {
-                fields[id] = AssetAttribute(attribute: each, functionElement: functionElement, rootNamespacePrefix: rootNamespacePrefix, namespaces: namespaces)
+                fields[id] = AssetAttribute(attribute: each, functionElement: functionElement, rootNamespacePrefix: rootNamespacePrefix, namespaces: namespaces, lang: lang)
             }
         }
         return fields
@@ -233,6 +255,14 @@ public class XMLHandler {
         return privateXMLHandler.introductionHtmlString
     }
 
+    var tbmlHtmlString: String {
+        return privateXMLHandler.tbmlHtmlString
+    }
+
+    var fieldIdsAndNames: [String: String] {
+        return privateXMLHandler.fieldIdsAndNames
+    }
+
     init(contract: String, assetDefinitionStore: AssetDefinitionStore? = nil) {
         let contract = contract.add0x.lowercased()
         if let handler = XMLHandler.xmlHandlers[contract] {
@@ -251,8 +281,8 @@ public class XMLHandler {
         xmlHandlers.removeAll()
     }
 
-    func getToken(name: String, fromTokenId tokenBytes32: BigUInt, index: UInt16, config: Config) -> Token {
-        return privateXMLHandler.getToken(name: name, fromTokenId: tokenBytes32, index: index, config: config, callForAssetAttributeCoordinator: XMLHandler.callForAssetAttributeCoordinator)
+    func getToken(name: String, symbol: String, fromTokenId tokenBytes32: BigUInt, index: UInt16, config: Config) -> Token {
+        return privateXMLHandler.getToken(name: name, symbol: symbol, fromTokenId: tokenBytes32, index: index, config: config, callForAssetAttributeCoordinator: XMLHandler.callForAssetAttributeCoordinator)
     }
 
     func getName() -> String {
@@ -301,6 +331,15 @@ extension XMLHandler {
 
     static func getOriginElement(fromAttributeTypeElement attributeTypeElement: XMLElement, namespacePrefix: String, namespaces: [String: String]) -> XMLElement? {
         return attributeTypeElement.at_xpath("origin".addToXPath(namespacePrefix: namespacePrefix), namespaces: namespaces)
+    }
+
+    static func getNameElement(fromAttributeTypeElement attributeTypeElement: XMLElement, namespacePrefix: String, namespaces: [String: String], lang: String) -> XMLElement? {
+        if let nameElement = attributeTypeElement.at_xpath("name[@xml:lang='\(lang)']".addToXPath(namespacePrefix: namespacePrefix), namespaces: namespaces) {
+            return nameElement
+        } else {
+            let fallback = attributeTypeElement.at_xpath("name[1]".addToXPath(namespacePrefix: namespacePrefix), namespaces: namespaces)
+            return fallback
+        }
     }
 
     static func getBitMaskFrom(fromAttributeTypeElement attributeTypeElement: XMLElement, namespacePrefix: String, namespaces: [String: String]) -> BigUInt? {

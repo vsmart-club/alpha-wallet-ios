@@ -28,6 +28,7 @@ class TokensCoordinator: Coordinator {
     private let storage: TokensDataStore
     private let cryptoPrice: Subscribable<Double>
     private let assetDefinitionStore: AssetDefinitionStore
+    private let tbmlStore: TbmlStore
 
     private lazy var tokensViewController: TokensViewController = {
         let controller = TokensViewController(
@@ -53,7 +54,8 @@ class TokensCoordinator: Coordinator {
             keystore: Keystore,
             tokensStorage: TokensDataStore,
             ethPrice: Subscribable<Double>,
-            assetDefinitionStore: AssetDefinitionStore
+            assetDefinitionStore: AssetDefinitionStore,
+            tbmlStore: TbmlStore
     ) {
         self.navigationController = navigationController
         self.navigationController.modalPresentationStyle = .formSheet
@@ -62,6 +64,7 @@ class TokensCoordinator: Coordinator {
         self.storage = tokensStorage
         self.cryptoPrice = ethPrice
         self.assetDefinitionStore = assetDefinitionStore
+        self.tbmlStore = tbmlStore
     }
 
     func start() {
@@ -378,7 +381,8 @@ class TokensCoordinator: Coordinator {
                 tokensStorage: storage,
                 ethPrice: cryptoPrice,
                 token: token,
-                assetDefinitionStore: assetDefinitionStore
+                assetDefinitionStore: assetDefinitionStore,
+                tbmlStore: tbmlStore
         )
         addCoordinator(tokensCardCoordinator)
         tokensCardCoordinator.delegate = self

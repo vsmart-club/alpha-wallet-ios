@@ -231,6 +231,7 @@ class UniversalLinkCoordinator: Coordinator {
                         id: 0,
                         index: 0,
                         name: label,
+                        symbol: "",
                         status: .available,
                         values: [:]
                 )
@@ -383,21 +384,23 @@ class UniversalLinkCoordinator: Coordinator {
         assetDefinitionStore.fetchXML(forContract: contractAddress, useCacheAndFetch: true) { [weak self] result in
             guard let strongSelf = self else { return }
 
-            func makeTokenHolder(name: String) {
-                strongSelf.makeTokenHolderImpl(name: name, bytes32Tokens: bytes32Tokens, contractAddress: contractAddress)
+            func makeTokenHolder(name: String, symbol: String) {
+                strongSelf.makeTokenHolderImpl(name: name, symbol: symbol, bytes32Tokens: bytes32Tokens, contractAddress: contractAddress)
                 strongSelf.updateTokenFields()
             }
 
             if let existingToken = strongSelf.tokensDatastore.objects.first(where: { $0.contract.sameContract(as: contractAddress) }) {
-                makeTokenHolder(name: existingToken.name)
+                makeTokenHolder(name: existingToken.name, symbol: existingToken.symbol)
             } else {
                 let localizedTokenTypeName = R.string.localizable.tokensTitlecase()
-                makeTokenHolder(name: localizedTokenTypeName )
+                //hhh need a defalt symbol name here? Is it used? Should it be optional instead?
+                makeTokenHolder(name: localizedTokenTypeName, symbol: "")
 
                 strongSelf.tokensDatastore.getContractName(for: contractAddress) { result in
                     switch result {
                     case .success(let name):
-                        makeTokenHolder(name: name)
+                        //hhh should fetch the symbol name also
+                        makeTokenHolder(name: name, symbol: "")
                     case .failure:
                         break
                     }
@@ -406,7 +409,7 @@ class UniversalLinkCoordinator: Coordinator {
         }
     }
 
-    private func makeTokenHolderImpl(name: String, bytes32Tokens: [String], contractAddress: String) {
+    private func makeTokenHolderImpl(name: String, symbol: String, bytes32Tokens: [String], contractAddress: String) {
         var tokens = [Token]()
         let xmlHandler = XMLHandler(contract: contractAddress)
         //TODO should pass Config instance into this func instead
@@ -414,7 +417,7 @@ class UniversalLinkCoordinator: Coordinator {
         for i in 0..<bytes32Tokens.count {
             let token = bytes32Tokens[i]
             if let tokenId = BigUInt(token.drop0x, radix: 16) {
-                let token = xmlHandler.getToken(name: name, fromTokenId: tokenId, index: UInt16(i), config: config)
+                let token = xmlHandler.getToken(name: name, symbol: symbol, fromTokenId: tokenId, index: UInt16(i), config: config)
                 tokens.append(token)
             }
         }

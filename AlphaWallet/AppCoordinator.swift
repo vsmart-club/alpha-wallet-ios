@@ -15,10 +15,14 @@ class AppCoordinator: NSObject, Coordinator {
     private let lock = Lock()
     private var keystore: Keystore
     private let assetDefinitionStore = AssetDefinitionStore()
+    private let tbmlStore = TbmlStore()
     private let window: UIWindow
     private var appTracker = AppTracker()
     private var assetDefinitionStoreCoordinator: AssetDefinitionStoreCoordinator? {
         return coordinators.first { $0 is AssetDefinitionStoreCoordinator } as? AssetDefinitionStoreCoordinator
+    }
+    private var tbmlStoreCoordinator: TbmlStoreCoordinator? {
+        return coordinators.first { $0 is TbmlStoreCoordinator } as? TbmlStoreCoordinator
     }
     private var pushNotificationsCoordinator: PushNotificationsCoordinator? {
         return coordinators.first { $0 is PushNotificationsCoordinator } as? PushNotificationsCoordinator
@@ -69,6 +73,7 @@ class AppCoordinator: NSObject, Coordinator {
         applyStyle()
         resetToWelcomeScreen()
         setupAssetDefinitionStore()
+        setupTbmlStore()
 
         if keystore.hasWallets {
             showTransactions(for: keystore.recentlyUsedWallet ?? keystore.wallets.first!)
@@ -80,14 +85,28 @@ class AppCoordinator: NSObject, Coordinator {
     /// Return true if handled
     func handleOpen(url: URL) -> Bool {
         if let assetDefinitionStoreCoordinator = assetDefinitionStoreCoordinator {
-            return assetDefinitionStoreCoordinator.handleOpen(url: url)
-        } else {
-            return false
+            let handled = assetDefinitionStoreCoordinator.handleOpen(url: url)
+            if handled {
+                return true
+            }
         }
+        if let tbmlStoreCoordinator = tbmlStoreCoordinator {
+            let handled = tbmlStoreCoordinator.handleOpen(url: url)
+            if handled {
+                return true
+            }
+        }
+        return false
     }
 
     private func setupAssetDefinitionStore() {
         let coordinator = AssetDefinitionStoreCoordinator()
+        addCoordinator(coordinator)
+        coordinator.start()
+    }
+
+    private func setupTbmlStore() {
+        let coordinator = TbmlStoreCoordinator()
         addCoordinator(coordinator)
         coordinator.start()
     }
@@ -98,6 +117,7 @@ class AppCoordinator: NSObject, Coordinator {
                 wallet: wallet,
                 keystore: keystore,
                 assetDefinitionStore: assetDefinitionStore,
+                tbmlStore: tbmlStore,
                 appTracker: appTracker
         )
         coordinator.delegate = self
@@ -249,6 +269,10 @@ extension AppCoordinator: InCoordinatorDelegate {
 
     func assetDefinitionsOverrideViewController(for coordinator: InCoordinator) -> UIViewController? {
         return assetDefinitionStoreCoordinator?.createOverridesViewController()
+    }
+
+    func tbmlOverrideViewController(for coordinator: InCoordinator) -> UIViewController? {
+        return tbmlStoreCoordinator?.createOverridesViewController()
     }
 }
 

@@ -2,7 +2,8 @@
 
 import Foundation
 
-class AssetDefinitionStoreCoordinator: Coordinator {
+//hhh look for AsssetDefinition-xxx
+class TbmlStoreCoordinator: Coordinator {
     private class WeakRef<T: AnyObject> {
         weak var object: T?
         init(object: T) {
@@ -18,11 +19,12 @@ class AssetDefinitionStoreCoordinator: Coordinator {
     private static var overridesDirectory: URL? {
         let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .allDomainsMask, true).compactMap { URL(fileURLWithPath: $0) }
         guard let documentDirectory = paths.first else { return nil }
-        return documentDirectory.appendingPathComponent(AssetDefinitionDiskBackingStoreWithOverrides.overridesDirectoryName)
+        return documentDirectory.appendingPathComponent(TbmlDiskBackingStoreWithOverrides.overridesDirectoryName)
     }
     var coordinators: [Coordinator] = []
     private var directoryWatcher: DirectoryContentsWatcherProtocol?
     //Holds an array of weak references. This exists basically because we didn't implement a way to detect when view controllers in this list are destroyed
+    //hhh should we continue to use this VC class? Maybe rename it then. Also title of VC is wrong
     private var viewControllers: [WeakRef<AssetDefinitionsOverridesViewController>] = []
 
     deinit {
@@ -31,7 +33,8 @@ class AssetDefinitionStoreCoordinator: Coordinator {
 
     func createOverridesViewController() -> AssetDefinitionsOverridesViewController {
         let vc = AssetDefinitionsOverridesViewController()
-        vc.title = R.string.localizable.aHelpAssetDefinitionOverridesTitle()
+        //hhh localize
+        vc.title = "TBML Overrides"
         vc.delegate = self
         configure(overridesViewController: vc)
         viewControllers.append(WeakRef(object: vc))
@@ -65,13 +68,13 @@ class AssetDefinitionStoreCoordinator: Coordinator {
     }
 
     private func inboxContents() -> [URL]? {
-        guard let inboxDirectory = AssetDefinitionStoreCoordinator.inboxDirectory else { return nil }
+        guard let inboxDirectory = TbmlStoreCoordinator.inboxDirectory else { return nil }
         return try? FileManager.default.contentsOfDirectory(at: inboxDirectory, includingPropertiesForKeys: nil)
     }
 
     private func overrides() -> [URL]? {
-        guard let overridesDirectory = AssetDefinitionStoreCoordinator.overridesDirectory else { return nil }
-        let urls = try? FileManager.default.contentsOfDirectory(at: overridesDirectory, includingPropertiesForKeys: nil).filter { AssetDefinitionDiskBackingStore.isValidAssetDefinitionFilename(forPath: $0) }
+        guard let overridesDirectory = TbmlStoreCoordinator.overridesDirectory else { return nil }
+        let urls = try? FileManager.default.contentsOfDirectory(at: overridesDirectory, includingPropertiesForKeys: nil).filter { TbmlDiskBackingStore.isValidFileName(forPath: $0) }
         if let urls = urls {
             return urls.sorted { $0.path.caseInsensitiveCompare($1.path) == .orderedAscending }
         } else {
@@ -90,23 +93,25 @@ class AssetDefinitionStoreCoordinator: Coordinator {
 
     /// Return true if handled
     func handleOpen(url: URL) -> Bool {
-        guard AssetDefinitionDiskBackingStore.isValidAssetDefinitionFilename(forPath: url) else { return false }
-        guard let overridesDirectory = AssetDefinitionStoreCoordinator.overridesDirectory else { return false }
+        //hhh Fix. check for .tbml
+//        guard TbmlDefinitionDiskBackingStore.isValidAssetDefinitionFilename(forPath: url) else { return false }
+        guard let overridesDirectory = TbmlStoreCoordinator.overridesDirectory else { return false }
 
         let filename = url.lastPathComponent.lowercased()
-        let destinationFileName = overridesDirectory.appendingPathComponent(filename)
+        let destinationFileName = filename.replacingOccurrences(of: ".tbml", with: ".xsl")
+        let absoluteDestinationFileName = overridesDirectory.appendingPathComponent(destinationFileName)
         do {
-            try? FileManager.default.removeItem(at: destinationFileName )
-            try FileManager.default.moveItem(at: url, to: destinationFileName )
+            try? FileManager.default.removeItem(at: absoluteDestinationFileName )
+            try FileManager.default.moveItem(at: url, to: absoluteDestinationFileName )
         } catch {
-            NSLog("Error moving asset definition file from \(url.path) to: \(destinationFileName.path): \(error)")
+            NSLog("Error moving asset definition file from \(url.path) to: \(absoluteDestinationFileName.path): \(error)")
         }
         return true
     }
 
     private func watchDirectoryContents(changeHandler: @escaping () -> Void) {
         guard directoryWatcher == nil else { return }
-        guard let directory = AssetDefinitionStoreCoordinator.overridesDirectory else { return }
+        guard let directory = TbmlStoreCoordinator.overridesDirectory else { return }
         directoryWatcher = DirectoryContentsWatcher.Local(path: directory.path)
         do {
             try directoryWatcher?.start { [weak self] results in
@@ -123,7 +128,7 @@ class AssetDefinitionStoreCoordinator: Coordinator {
     }
 }
 
-extension AssetDefinitionStoreCoordinator: AssetDefinitionsOverridesViewControllerDelegate {
+extension TbmlStoreCoordinator: AssetDefinitionsOverridesViewControllerDelegate {
     func didDelete(overrideFileForContract file: URL, in viewController: AssetDefinitionsOverridesViewController) {
         try? FileManager.default.removeItem(at: file)
         configure(overridesViewController: viewController)

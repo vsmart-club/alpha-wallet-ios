@@ -42,7 +42,7 @@ class TokenAdaptor {
             let id = item.balance
             guard isNonZeroBalance(id) else { continue }
             if let tokenInt = BigUInt(id.drop0x, radix: 16) {
-                let token = getToken(name: self.token.name, for: tokenInt, index: UInt16(index), config: config)
+                let token = getToken(name: self.token.name, symbol: self.token.symbol, for: tokenInt, index: UInt16(index), config: config)
                 tokens.append(token)
             }
         }
@@ -137,8 +137,8 @@ class TokenAdaptor {
     }
 
     //TODO pass lang into here
-    private func getToken(name: String, for id: BigUInt, index: UInt16, config: Config) -> Token {
-        return XMLHandler(contract: token.contract).getToken(name: name, fromTokenId: id, index: index, config: config)
+    private func getToken(name: String, symbol: String, for id: BigUInt, index: UInt16, config: Config) -> Token {
+        return XMLHandler(contract: token.contract).getToken(name: name, symbol: symbol, fromTokenId: id, index: index, config: config)
     }
 
     private func getTokenForOpenSeaNonFungible(forJSONString jsonString: String) -> Token? {
@@ -165,6 +165,7 @@ class TokenAdaptor {
                 id: BigUInt(nonFungible.tokenId)!,
                 index: 0,
                 name: nonFungible.contractName,
+                symbol: "",
                 status: status,
                 values: values
         )

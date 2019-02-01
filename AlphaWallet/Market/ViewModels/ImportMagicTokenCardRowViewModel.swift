@@ -9,6 +9,10 @@ struct ImportMagicTokenCardRowViewModel: TokenCardRowViewModelProtocol {
         self.importMagicTokenViewControllerViewModel = importMagicTokenViewControllerViewModel
     }
 
+    var tokenHolder: TokenHolder? {
+        return importMagicTokenViewControllerViewModel.tokenHolder
+    }
+
     var tokenCount: String {
         return importMagicTokenViewControllerViewModel.tokenCount
     }
@@ -142,6 +146,32 @@ struct ImportMagicTokenCardRowViewModel: TokenCardRowViewModelProtocol {
                     state: (tokenHolder.values["state"] as? SubscribableAssetAttributeValue)?.subscribable.value as? String,
                     country: country
             )
+        }
+    }
+
+    var tbmlHtmlString: String {
+        guard let tokenHolder = importMagicTokenViewControllerViewModel.tokenHolder else { return "" }
+        let xmlHandler = XMLHandler(contract: tokenHolder.contractAddress)
+        return wrapWithHtmlViewport(xmlHandler.tbmlHtmlString)
+    }
+
+    var hasTbml: Bool {
+        //TODO improve performance? Because it is generated again when used
+        return !tbmlHtmlString.isEmpty
+    }
+
+    private func wrapWithHtmlViewport(_ html: String) -> String {
+        if html.isEmpty {
+            return ""
+        } else {
+            return """
+                   <html>
+                   <head>
+                   <meta name="viewport" content="width=device-width, initial-scale=1,  maximum-scale=1, shrink-to-fit=no">
+                   </head>
+                   \(html)
+                   </html>
+                   """
         }
     }
 }

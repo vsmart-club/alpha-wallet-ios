@@ -165,4 +165,29 @@ struct TokenCardRowViewModel: TokenCardRowViewModelProtocol {
     var onlyShowTitle: Bool {
         return !tokenHolder.hasAssetDefinition
     }
+
+    var tbmlHtmlString: String {
+        let xmlHandler = XMLHandler(contract: tokenHolder.contractAddress)
+        return wrapWithHtmlViewport(xmlHandler.tbmlHtmlString)
+    }
+
+    var hasTbml: Bool {
+        //TODO improve performance? Because it is generated again when used
+        return !tbmlHtmlString.isEmpty
+    }
+
+    private func wrapWithHtmlViewport(_ html: String) -> String {
+        if html.isEmpty {
+            return ""
+        } else {
+            return """
+                   <html>
+                   <head>
+                   <meta name="viewport" content="width=device-width, initial-scale=1,  maximum-scale=1, shrink-to-fit=no">
+                   </head>
+                   \(html)
+                   </html>
+                   """
+        }
+    }
 }

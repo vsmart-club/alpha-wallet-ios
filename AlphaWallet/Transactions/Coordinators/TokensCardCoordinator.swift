@@ -29,6 +29,7 @@ class TokensCardCoordinator: NSObject, Coordinator {
     private let tokensStorage: TokensDataStore
     private let ethPrice: Subscribable<Double>
     private let assetDefinitionStore: AssetDefinitionStore
+    private let tbmlStore: TbmlStore
 
     weak var delegate: TokensCardCoordinatorDelegate?
     let navigationController: UINavigationController
@@ -47,7 +48,8 @@ class TokensCardCoordinator: NSObject, Coordinator {
             tokensStorage: TokensDataStore,
             ethPrice: Subscribable<Double>,
             token: TokenObject,
-            assetDefinitionStore: AssetDefinitionStore
+            assetDefinitionStore: AssetDefinitionStore,
+            tbmlStore: TbmlStore
     ) {
         self.session = session
         self.keystore = keystore
@@ -56,16 +58,27 @@ class TokensCardCoordinator: NSObject, Coordinator {
         self.ethPrice = ethPrice
         self.token = token
         self.assetDefinitionStore = assetDefinitionStore
+        self.tbmlStore = tbmlStore
     }
 
     func start() {
         rootViewController.configure()
         navigationController.viewControllers = [rootViewController]
         refreshUponAssetDefinitionChanges()
+        refreshUponTbmlChanges()
     }
 
     private func refreshUponAssetDefinitionChanges() {
         assetDefinitionStore.subscribe { [weak self] contract in
+            guard let strongSelf = self else { return }
+            guard contract.sameContract(as: strongSelf.token.contract) else { return }
+            let viewModel = TokensCardViewModel(token: strongSelf.token)
+            strongSelf.rootViewController.configure(viewModel: viewModel)
+        }
+    }
+
+    private func refreshUponTbmlChanges() {
+        tbmlStore.subscribe { [weak self] contract in
             guard let strongSelf = self else { return }
             guard contract.sameContract(as: strongSelf.token.contract) else { return }
             let viewModel = TokensCardViewModel(token: strongSelf.token)

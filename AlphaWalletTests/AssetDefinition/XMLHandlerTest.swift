@@ -20,6 +20,7 @@ class XMLHandlerTest: XCTestCase {
     func testParser() {
         let token = XMLHandler(contract: "0x").getToken(
                 name: "",
+                symbol: "",
                 fromTokenId: BigUInt(tokenHex, radix: 16)!,
                 index: UInt16(1),
                 config: .make()
@@ -77,7 +78,7 @@ class XMLHandlerTest: XCTestCase {
         let xmlHandler = XMLHandler(contract: contractAddress, assetDefinitionStore: store)
         let tokenId = BigUInt("0000000000000000000000000000000002000000000000000000000000000000", radix: 16)!
         let config = Config.make()
-        let token = xmlHandler.getToken(name: "Some name", fromTokenId: tokenId, index: 1, config: config)
+        let token = xmlHandler.getToken(name: "Some name", symbol: "Some symbol", fromTokenId: tokenId, index: 1, config: config)
         let values = token.values
         XCTAssertEqual(values["locality"] as? String, "Saint Petersburg")
     }
@@ -87,7 +88,7 @@ class XMLHandlerTest: XCTestCase {
         let xmlHandler = XMLHandler(contract: "0x1", assetDefinitionStore: store)
         let tokenId = BigUInt("0000000000000000000000000000000002000000000000000000000000000000", radix: 16)!
         let config = Config.make()
-        let token = xmlHandler.getToken(name: "Some name", fromTokenId: tokenId, index: 1, config: config)
+        let token = xmlHandler.getToken(name: "Some name", symbol: "Some symbol", fromTokenId: tokenId, index: 1, config: config)
         let values = token.values
         XCTAssertTrue(values.isEmpty)
     }

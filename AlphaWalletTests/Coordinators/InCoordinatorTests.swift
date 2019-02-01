@@ -15,6 +15,7 @@ class InCoordinatorTests: XCTestCase {
             wallet: .make(),
             keystore: FakeKeystore(wallets: [wallet]),
             assetDefinitionStore: AssetDefinitionStore(),
+            tbmlStore: TbmlStore(),
             config: config
         )
 
@@ -46,6 +47,7 @@ class InCoordinatorTests: XCTestCase {
             wallet: .make(),
             keystore: keystore,
             assetDefinitionStore: AssetDefinitionStore(),
+            tbmlStore: TbmlStore(),
             config: .make()
         )
 
@@ -65,6 +67,7 @@ class InCoordinatorTests: XCTestCase {
                 wallet: wallet,
                 keystore: FakeKeystore(wallets: [wallet]),
                 assetDefinitionStore: AssetDefinitionStore(),
+                tbmlStore: TbmlStore(),
                 config: .make()
         )
         coordinator.showTabBar(for: .make())
@@ -84,6 +87,7 @@ class InCoordinatorTests: XCTestCase {
             wallet: wallet,
             keystore: FakeKeystore(wallets: [wallet]),
             assetDefinitionStore: AssetDefinitionStore(),
+            tbmlStore: TbmlStore(),
             config: .make()
         )
         coordinator.showTabBar(for: .make())
@@ -102,6 +106,7 @@ class InCoordinatorTests: XCTestCase {
             wallet: .make(),
             keystore: FakeKeystore(),
             assetDefinitionStore: AssetDefinitionStore(),
+            tbmlStore: TbmlStore(),
             config: .make()
         )
         coordinator.showTabBar(for: .make())
@@ -137,6 +142,7 @@ class InCoordinatorTests: XCTestCase {
             wallet: wallet,
             keystore: keystore,
             assetDefinitionStore: AssetDefinitionStore(),
+            tbmlStore: TbmlStore(),
             config: .make()
         )
         coordinator.showTabBar(for: wallet)

@@ -27,7 +27,7 @@ class TokensCardViewController: UIViewController, TokenVerifiableStatusViewContr
     private var viewModel: TokensCardViewModel
     private let tokensStorage: TokensDataStore
     private let account: Wallet
-    private let header = TokenCardsViewControllerHeaderWithIntroduction()
+    private let header = TokenCardsViewControllerHeader()
     private let roundedBackground = RoundedBackground()
     private let tableView = UITableView(frame: .zero, style: .plain)
     private let buttonsBar = ButtonsBar(numberOfButtons: 3)
@@ -68,8 +68,6 @@ class TokensCardViewController: UIViewController, TokenVerifiableStatusViewContr
 		
         roundedBackground.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(roundedBackground)
-
-        header.delegate = self
 
         tableView.register(TokenCardTableViewCellWithoutCheckbox.self, forCellReuseIdentifier: TokenCardTableViewCellWithoutCheckbox.identifier)
         tableView.register(OpenSeaNonFungibleTokenCardTableViewCellWithoutCheckbox.self, forCellReuseIdentifier: OpenSeaNonFungibleTokenCardTableViewCellWithoutCheckbox.identifier)
@@ -279,11 +277,5 @@ extension TokensCardViewController: UIViewControllerPreviewingDelegate {
     public func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
         guard let viewController = viewControllerToCommit as? PeekOpenSeaNonFungibleTokenViewController else { return }
         toggleDetailsVisibility(forIndexPath: viewController.indexPath)
-    }
-}
-
-extension TokensCardViewController: TokenCardsViewControllerHeaderWithIntroductionDelegate {
-    func didUpdate(height: CGFloat, ofHeader header: TokenCardsViewControllerHeaderWithIntroduction) {
-        tableView.tableHeaderView = header
     }
 }

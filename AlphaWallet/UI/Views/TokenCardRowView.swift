@@ -1,6 +1,7 @@
 // Copyright © 2018 Stormbird PTE. LTD.
 
 import UIKit
+import WebKit
 
 class TokenCardRowView: UIView {
 	let checkboxImageView = UIImageView(image: R.image.ticket_bundle_unchecked())
@@ -20,6 +21,7 @@ class TokenCardRowView: UIView {
 	private var detailsRowStack: UIStackView?
     private let showCheckbox: Bool
 	private var canDetailsBeVisible = true
+	private var nativelyRenderedAttributeViews = [UIView]()
     var areDetailsVisible = false {
 		didSet {
 			guard canDetailsBeVisible else { return }
@@ -43,6 +45,15 @@ class TokenCardRowView: UIView {
 			}
 		}
 	}
+	lazy private var tbmlView: TokenInstanceWebView = {
+		//hhh pass in Config instance instead
+		let config = Config()
+		//hhh pass in keystore or wallet address instead
+		let walletAddress = try! EtherKeystore().recentlyUsedWallet!.address
+		return TokenInstanceWebView(config: config, walletAddress: walletAddress)
+	}()
+	//hhh have to compute height or let it scroll since it's mostly fullscreen
+	lazy private var tbmlViewHeightConstraint = tbmlView.heightAnchor.constraint(equalToConstant: 100)
 
 	init(showCheckbox: Bool = false) {
         self.showCheckbox = showCheckbox
@@ -69,8 +80,11 @@ class TokenCardRowView: UIView {
 		].asStackView(axis: .vertical, contentHuggingPriority: .required)
 		detailsRowStack?.isHidden = true
 
+		tbmlView.webView.addObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress), options: .new, context: nil)
+
 		let row1 = venueLabel
 		let stackView = [
+			tbmlView,
 			stateLabel,
 			row0,
 			row1,
@@ -81,6 +95,8 @@ class TokenCardRowView: UIView {
 		stackView.translatesAutoresizingMaskIntoConstraints = false
 		stackView.alignment = .leading
 		background.addSubview(stackView)
+
+		nativelyRenderedAttributeViews = [stateLabel, row0, row1, spaceAboveBottomRowStack, row3, detailsRowStack!]
 
 		// TODO extract constant. Maybe StyleLayout.sideMargin
 		let xMargin  = CGFloat(7)
@@ -114,8 +130,10 @@ class TokenCardRowView: UIView {
 			background.topAnchor.constraint(equalTo: topAnchor, constant: yMargin),
 			background.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor, constant: -yMargin),
 
+			tbmlView.widthAnchor.constraint(equalTo: stackView.widthAnchor),
+
 			stateLabel.heightAnchor.constraint(equalToConstant: 22),
-		] + checkboxRelatedConstraints)
+		] + checkboxRelatedConstraints + [tbmlViewHeightConstraint])
 	}
 
 	required init?(coder aDecoder: NSCoder) {
@@ -205,12 +223,44 @@ class TokenCardRowView: UIView {
 			//do nothing
 		}
 
+		if viewModel.hasTbml {
+			canDetailsBeVisible = false
+			nativelyRenderedAttributeViews.hideAll()
+			tbmlView.isHidden = false
+			let html = viewModel.tbmlHtmlString
+			//hhh when scrolling, takes some time to refresh to correct value
+			tbmlView.webView.loadHTMLString(html, baseURL: nil)
+			//TODO not good to explicitly check for different types. Easy to miss
+			if let viewModel = viewModel as? TokenCardRowViewModel {
+				self.tbmlView.update(withTokenHolder: viewModel.tokenHolder, asUserScript: true)
+			} else if let viewModel = viewModel as? ImportMagicTokenCardRowViewModel, let tokenHolder = viewModel.tokenHolder {
+				self.tbmlView.update(withTokenHolder: tokenHolder, asUserScript: true)
+			}
+		} else {
+			nativelyRenderedAttributeViews.showAll()
+			//TODO we can't change it here. Because it is set (correctly) earlier. Fix this inconsistency
+//			canDetailsBeVisible = true
+			tbmlView.isHidden = true
+		}
+
 		adjustmentsToHandleWhenCategoryLabelTextIsTooLong()
 	}
 
 	private func adjustmentsToHandleWhenCategoryLabelTextIsTooLong() {
 		tokenCountLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
 		categoryLabel.adjustsFontSizeToFitWidth = true
+	}
+
+	override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+		guard keyPath == "estimatedProgress" else { return }
+		guard tbmlView.webView.estimatedProgress == 1 else { return }
+		DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+			self.makeIntroductionWebViewFullHeight()
+		}
+	}
+
+	private func makeIntroductionWebViewFullHeight() {
+		tbmlViewHeightConstraint.constant = tbmlView.webView.scrollView.contentSize.height
 	}
 }
 

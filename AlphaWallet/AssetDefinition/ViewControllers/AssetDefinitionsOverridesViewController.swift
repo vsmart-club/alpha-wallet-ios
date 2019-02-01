@@ -14,8 +14,6 @@ class AssetDefinitionsOverridesViewController: UIViewController {
     init() {
         super.init(nibName: nil, bundle: nil)
 
-        title = R.string.localizable.aHelpAssetDefinitionOverridesTitle()
-
         view.backgroundColor = Colors.appBackground
 
         tableView.register(AssetDefinitionsOverridesViewCell.self, forCellReuseIdentifier: AssetDefinitionsOverridesViewCell.identifier)

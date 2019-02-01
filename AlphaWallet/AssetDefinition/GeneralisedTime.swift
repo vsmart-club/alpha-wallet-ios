@@ -11,6 +11,16 @@ struct GeneralisedTime {
         return formatter
     }()
 
+    var formattedAsJavaScriptDateConstructorArgument: String {
+        //hhh cache date formatter
+        //hhh date value is wrong. Maybe related to timezone
+        let df = DateFormatter()
+        df.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        //hhh must be correct timezone
+        df.timeZone = timeZone
+        return df.string(from: date)
+    }
+
     //TODO be good to remove this and use an optional instead
     public init() {
         self.date = Date()

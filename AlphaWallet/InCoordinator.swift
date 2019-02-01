@@ -11,6 +11,7 @@ protocol InCoordinatorDelegate: class {
     func didUpdateAccounts(in coordinator: InCoordinator)
     func didShowWallet(in coordinator: InCoordinator)
     func assetDefinitionsOverrideViewController(for coordinator: InCoordinator) -> UIViewController?
+    func tbmlOverrideViewController(for coordinator: InCoordinator) -> UIViewController?
 }
 
 enum Tabs {
@@ -34,6 +35,7 @@ class InCoordinator: Coordinator {
     private let initialWallet: Wallet
     private let config: Config
     private let assetDefinitionStore: AssetDefinitionStore
+    private let tbmlStore: TbmlStore
     private let appTracker: AppTracker
     private var tokensStorageForCryptoPriceFetching: TokensDataStore?
     private var callForAssetAttributeCoordinator: CallForAssetAttributeCoordinator? {
@@ -76,6 +78,7 @@ class InCoordinator: Coordinator {
             wallet: Wallet,
             keystore: Keystore,
             assetDefinitionStore: AssetDefinitionStore,
+            tbmlStore: TbmlStore,
             config: Config = Config(),
             appTracker: AppTracker = AppTracker()
     ) {
@@ -86,6 +89,7 @@ class InCoordinator: Coordinator {
         self.appTracker = appTracker
         self.assetDefinitionStore = assetDefinitionStore
         self.assetDefinitionStore.enableFetchXMLForContractInPasteboard()
+        self.tbmlStore = tbmlStore
     }
 
     func start() {
@@ -184,7 +188,8 @@ class InCoordinator: Coordinator {
                 keystore: keystore,
                 tokensStorage: tokensDataStore,
                 ethPrice: ethPrice,
-                assetDefinitionStore: assetDefinitionStore
+                assetDefinitionStore: assetDefinitionStore,
+                tbmlStore: tbmlStore
         )
         coordinator.rootViewController.tabBarItem = UITabBarItem(title: R.string.localizable.walletTokensTabbarItemTitle(), image: R.image.tab_wallet()?.withRenderingMode(.alwaysOriginal), selectedImage: R.image.tab_wallet())
         coordinator.delegate = self
@@ -598,6 +603,10 @@ extension InCoordinator: SettingsCoordinatorDelegate {
 
     func assetDefinitionsOverrideViewController(for: SettingsCoordinator) -> UIViewController? {
         return delegate?.assetDefinitionsOverrideViewController(for: self)
+    }
+
+    func tbmlOverrideViewController(for: SettingsCoordinator) -> UIViewController? {
+        return delegate?.tbmlOverrideViewController(for: self)
     }
 }
 
