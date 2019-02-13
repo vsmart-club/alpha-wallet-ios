@@ -296,6 +296,7 @@
 		5E7C741353DDF87133054FCC /* DeletedContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7C72BEB789700C49FF64A6 /* DeletedContract.swift */; };
 		5E7C741CA88EFAC66756DE7F /* EditMyDappViewControllerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7C776B129861728FFB8CC8 /* EditMyDappViewControllerViewModel.swift */; };
 		5E7C74201EE22721F7F74B50 /* TokensCardViewControllerHeaderViewModelWithIntroduction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7C71AD6113117362870CC5 /* TokensCardViewControllerHeaderViewModelWithIntroduction.swift */; };
+		5E7C742DDE5C63804A2C420D /* Collection+UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7C7914F01B5FEA5B20398B /* Collection+UIView.swift */; };
 		5E7C74438E1FBF28ADFAFAD1 /* BaseTokenCardTableViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7C7AD33AC8BE19F5C66489 /* BaseTokenCardTableViewCellViewModel.swift */; };
 		5E7C744B0282FD7B3A29AA7B /* ScriptMessageProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7C708DE897B6677EAD769B /* ScriptMessageProxy.swift */; };
 		5E7C745A423BD10CFDED9A81 /* ServersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7C7CBEBF984CFCA29D6866 /* ServersViewModel.swift */; };
@@ -993,6 +994,7 @@
 		5E7C78B63FDE2FAF25389260 /* TransferTokensCardViaWalletAddressViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransferTokensCardViaWalletAddressViewController.swift; sourceTree = "<group>"; };
 		5E7C78E5C8FAEA752B32626D /* UIActivityViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIActivityViewController.swift; sourceTree = "<group>"; };
 		5E7C790B6371A5BCD733A4BE /* DappsHomeEmptyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DappsHomeEmptyView.swift; sourceTree = "<group>"; };
+		5E7C7914F01B5FEA5B20398B /* Collection+UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Collection+UIView.swift"; sourceTree = "<group>"; };
 		5E7C791BD7AFEA4A419BAE24 /* OpenSeaNonFungibleTokenCardTableViewCellWithoutCheckbox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenSeaNonFungibleTokenCardTableViewCellWithoutCheckbox.swift; sourceTree = "<group>"; };
 		5E7C793CDFA907BFDFECB6CB /* DappViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DappViewCell.swift; sourceTree = "<group>"; };
 		5E7C793E23E2364B73C4D813 /* WelcomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
@@ -2260,6 +2262,7 @@
 				2931120E1FC4ADBE00966EEA /* ViewModels */,
 				29FC9BC41F830880000209CD /* Initializers */,
 				5E7C772DC28C5110021894E3 /* ImageCache.swift */,
+				5E7C7914F01B5FEA5B20398B /* Collection+UIView.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
