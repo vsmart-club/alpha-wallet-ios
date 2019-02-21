@@ -81,16 +81,9 @@ extension WKWebViewConfiguration {
 
         //hhh only for tbml webview, not for general dapp browsers? Or yes? Need to ask user permission first?
         //hhh should this be injected into current provider instead or both?
-        //hhh start with empty first? But include the symbol and name
-        //hhh how do we get the symbol and name?
         web3.tokens = {
             data: {
                 currentInstance: {
-                    name: \"\",
-                    symbol: \"\",
-                    balance: 10,
-                    country: \"SG from web3\",
-                    category: 1,
                 },
             },
             dataChanged: (tokens) => {
