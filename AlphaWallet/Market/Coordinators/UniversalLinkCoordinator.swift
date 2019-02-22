@@ -393,7 +393,7 @@ class UniversalLinkCoordinator: Coordinator {
                 makeTokenHolder(name: existingToken.name, symbol: existingToken.symbol)
             } else {
                 let localizedTokenTypeName = R.string.localizable.tokensTitlecase()
-                //hhh need a defalt symbol name here? Is it used? Should it be optional instead?
+                //hhh need a default symbol name here? Is it used? Should it be optional instead?
                 makeTokenHolder(name: localizedTokenTypeName, symbol: "")
 
                 strongSelf.tokensDatastore.getContractName(for: contractAddress) { result in

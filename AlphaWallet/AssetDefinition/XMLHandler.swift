@@ -34,6 +34,7 @@ private class PrivateXMLHandler {
         "ds": "http://www.w3.org/2000/09/xmldsig#"
     ]
     private let contractAddress: String
+    private let tbmlStore: TbmlStore
     private lazy var fields = extractFields()
     private let isOfficial: Bool
 
@@ -57,9 +58,7 @@ private class PrivateXMLHandler {
     var tbmlHtmlString: String {
         guard hasAssetDefinition else { return "" }
 
-        //hhh better to pass this in or keep a single instance?
-        let store = TbmlStore()
-        guard let xslt = store.tokenXslFromTbml(forContract: contractAddress) else { return "" }
+        guard let xslt = tbmlStore.tokenXslFromTbml(forContract: contractAddress) else { return "" }
 
         //hhh but really aren't getting anything out of the asset definition, right?
         guard let xmlData = xml.toXML?.data(using: .utf8) else { return "" }
@@ -105,8 +104,9 @@ private class PrivateXMLHandler {
         })
     }()
 
-    init(contract: String, assetDefinitionStore store: AssetDefinitionStore?) {
-        contractAddress = contract.add0x.lowercased()
+    init(contract: String, assetDefinitionStore store: AssetDefinitionStore?, tbmlStore: TbmlStore) {
+        self.contractAddress = contract.add0x.lowercased()
+        self.tbmlStore = tbmlStore
         let assetDefinitionStore = store ?? AssetDefinitionStore()
         let xmlString = assetDefinitionStore[contract]
         hasAssetDefinition = xmlString != nil
@@ -263,12 +263,13 @@ public class XMLHandler {
         return privateXMLHandler.fieldIdsAndNames
     }
 
+    //hhh better to pass in an instance of TbmlStore?
     init(contract: String, assetDefinitionStore: AssetDefinitionStore? = nil) {
         let contract = contract.add0x.lowercased()
         if let handler = XMLHandler.xmlHandlers[contract] {
             privateXMLHandler = handler
         } else {
-            privateXMLHandler = PrivateXMLHandler(contract: contract, assetDefinitionStore: assetDefinitionStore)
+            privateXMLHandler = PrivateXMLHandler(contract: contract, assetDefinitionStore: assetDefinitionStore, tbmlStore: TbmlStore())
             XMLHandler.xmlHandlers[contract] = privateXMLHandler
         }
     }
