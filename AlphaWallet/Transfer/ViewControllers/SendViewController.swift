@@ -27,7 +27,6 @@ class SendViewController: UIViewController, CanScanQRCode {
     private let amountLabel = UILabel()
     private let buttonsBar = ButtonsBar(numberOfButtons: 1)
     private var viewModel: SendViewModel!
-    //hhh verify this shows xDai correct
     lazy private var headerViewModel = SendHeaderViewViewModelWithIntroduction(server: config.server)
     private var balanceViewModel: BalanceBaseViewModel?
     private let session: WalletSession
