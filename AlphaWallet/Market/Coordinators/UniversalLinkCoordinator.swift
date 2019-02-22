@@ -3,6 +3,7 @@
 import Foundation
 import Alamofire
 import BigInt
+import PromiseKit
 import RealmSwift
 import TrustKeystore
 import web3swift
@@ -393,17 +394,14 @@ class UniversalLinkCoordinator: Coordinator {
                 makeTokenHolder(name: existingToken.name, symbol: existingToken.symbol)
             } else {
                 let localizedTokenTypeName = R.string.localizable.tokensTitlecase()
-                //hhh need a default symbol name here? Is it used? Should it be optional instead?
                 makeTokenHolder(name: localizedTokenTypeName, symbol: "")
 
-                strongSelf.tokensDatastore.getContractName(for: contractAddress) { result in
-                    switch result {
-                    case .success(let name):
-                        //hhh should fetch the symbol name also
-                        makeTokenHolder(name: name, symbol: "")
-                    case .failure:
-                        break
-                    }
+                let getContractName = strongSelf.tokensDatastore.getContractName(for: contractAddress)
+                let getContractSymbol = strongSelf.tokensDatastore.getContractSymbol(for: contractAddress)
+                firstly {
+                    when(fulfilled: getContractName, getContractSymbol)
+                }.done { name, symbol in
+                    makeTokenHolder(name: name, symbol: symbol)
                 }
             }
         }
