@@ -4,6 +4,8 @@ import Foundation
 
 class TbmlDiskBackingStore: TbmlBackingStore {
     private static let officialDirectoryName = "tbml"
+    static let originalFileExtension = "tbml"
+    static let internalFileExtension = "xsl"
 
     private let documentsDirectory = URL(fileURLWithPath: NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0])
     private let directoryName: String
@@ -63,19 +65,22 @@ class TbmlDiskBackingStore: TbmlBackingStore {
     private func filename(fromContract contract: String) -> String {
         let name = standardizedName(ofContract: contract)
         //hhh should probably use this. But need to change file watcher to handle it since file watcher only handles a specific directory. Might be complicated
-//        return "\(name)/token.xsl"
-        return "\(name).xsl"
+//        return "\(name)/token.\(TbmlDiskBackingStore.internalFileExtension)"
+        return "\(name).\(TbmlDiskBackingStore.internalFileExtension)"
     }
 
-    static func contract(fromPath path: URL) -> String? {
+    static func contract(fromPath path: URL, withExtension fileExtension: String = internalFileExtension) -> String? {
         guard path.lastPathComponent.hasPrefix("0x") else { return nil }
-        //hhh should be a constant. Possible?
-        guard path.pathExtension == "xsl" else { return nil }
+        guard path.pathExtension == fileExtension else { return nil }
         return path.deletingPathExtension().lastPathComponent
     }
 
     static func isValidFileName(forPath path: URL) -> Bool {
         return contract(fromPath: path) != nil
+    }
+
+    static func isValidOriginalFileName(forPath path: URL) -> Bool {
+        return contract(fromPath: path, withExtension: originalFileExtension) != nil
     }
 
     subscript(contract: String) -> String? {

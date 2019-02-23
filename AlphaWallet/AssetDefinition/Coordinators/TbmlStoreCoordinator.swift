@@ -73,6 +73,7 @@ class TbmlStoreCoordinator: Coordinator {
     }
 
     private func overrides() -> [URL]? {
+        //hhh maybe this list should just be provided by TbmlStore (which will ask TbmlDiskBackingStore?). If so, add a TODO for Asset definitions too
         guard let overridesDirectory = TbmlStoreCoordinator.overridesDirectory else { return nil }
         let urls = try? FileManager.default.contentsOfDirectory(at: overridesDirectory, includingPropertiesForKeys: nil).filter { TbmlDiskBackingStore.isValidFileName(forPath: $0) }
         if let urls = urls {
@@ -93,12 +94,11 @@ class TbmlStoreCoordinator: Coordinator {
 
     /// Return true if handled
     func handleOpen(url: URL) -> Bool {
-        //hhh Fix. check for .tbml
-//        guard TbmlDefinitionDiskBackingStore.isValidAssetDefinitionFilename(forPath: url) else { return false }
+        guard TbmlDiskBackingStore.isValidOriginalFileName(forPath: url) else { return false }
         guard let overridesDirectory = TbmlStoreCoordinator.overridesDirectory else { return false }
 
         let filename = url.lastPathComponent.lowercased()
-        let destinationFileName = filename.replacingOccurrences(of: ".tbml", with: ".xsl")
+        let destinationFileName = filename.replacingOccurrences(of: ".\(TbmlDiskBackingStore.originalFileExtension)", with: ".\(TbmlDiskBackingStore.internalFileExtension)")
         let absoluteDestinationFileName = overridesDirectory.appendingPathComponent(destinationFileName)
         do {
             try? FileManager.default.removeItem(at: absoluteDestinationFileName )
