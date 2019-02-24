@@ -13,7 +13,7 @@ class TokenInstanceWebView: UIView {
 
     //hhh make private
     lazy var webView: WKWebView = {
-        let webViewConfig = WKWebViewConfiguration.make(for: config, address: walletAddress, with: config, in: ScriptMessageProxy(delegate: self))
+        let webViewConfig = WKWebViewConfiguration.make(forType: .tbmlRenderer, config: config, address: walletAddress, with: config, in: ScriptMessageProxy(delegate: self))
         webViewConfig.websiteDataStore = .default()
         return .init(frame: .zero, configuration: webViewConfig)
     }()

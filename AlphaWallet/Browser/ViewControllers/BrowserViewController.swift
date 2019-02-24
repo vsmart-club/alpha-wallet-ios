@@ -61,7 +61,7 @@ final class BrowserViewController: UIViewController {
     }()
 
     lazy var config: WKWebViewConfiguration = {
-        let config = WKWebViewConfiguration.make(for: sessionConfig, address: account.address, with: sessionConfig, in: ScriptMessageProxy(delegate: self))
+        let config = WKWebViewConfiguration.make(forType: .dappBrowser, config: sessionConfig, address: account.address, with: sessionConfig, in: ScriptMessageProxy(delegate: self))
         config.websiteDataStore = WKWebsiteDataStore.default()
         return config
     }()

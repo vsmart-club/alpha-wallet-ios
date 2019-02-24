@@ -5,9 +5,14 @@ import WebKit
 import JavaScriptCore
 import TrustKeystore
 
+enum WebViewType {
+    case dappBrowser
+    case tbmlRenderer
+}
+
 extension WKWebViewConfiguration {
 
-    static func make(for config: Config, address: Address, with sessionConfig: Config, in messageHandler: WKScriptMessageHandler) -> WKWebViewConfiguration {
+    static func make(forType type: WebViewType, config: Config, address: Address, with sessionConfig: Config, in messageHandler: WKScriptMessageHandler) -> WKWebViewConfiguration {
         let webViewConfig = WKWebViewConfiguration()
         var js = ""
 
@@ -78,19 +83,25 @@ extension WKWebViewConfiguration {
         web3.eth.getCoinbase = function(cb) {
             return cb(null, addressHex)
         }
-
-        //hhh only for tbml webview, not for general dapp browsers? Or yes? Need to ask user permission first?
-        //hhh should this be injected into current provider instead or both?
-        web3.tokens = {
-            data: {
-                currentInstance: {
-                },
-            },
-            dataChanged: (tokens) => {
-              console.log(\"web3.tokens.data changed. You should assign a function to `web3.tokens.dataChanged` to monitor for changes like this:\\n    `web3.tokens.dataChanged = (oldTokens, updatedTokens) => { //do something }`\")
-            }
-        }
         """
+
+        switch type {
+        case .dappBrowser:
+            break
+        case .tbmlRenderer:
+            js += """
+                  \n
+                  web3.tokens = {
+                      data: {
+                          currentInstance: {
+                          },
+                      },
+                      dataChanged: (tokens) => {
+                        console.log(\"web3.tokens.data changed. You should assign a function to `web3.tokens.dataChanged` to monitor for changes like this:\\n    `web3.tokens.dataChanged = (oldTokens, updatedTokens) => { //do something }`\")
+                      }
+                  }
+                  """
+        }
         let userScript = WKUserScript(source: js, injectionTime: .atDocumentStart, forMainFrameOnly: false)
         webViewConfig.userContentController.add(messageHandler, name: Method.signTransaction.rawValue)
         webViewConfig.userContentController.add(messageHandler, name: Method.signPersonalMessage.rawValue)
