@@ -33,8 +33,7 @@ class TbmlStoreCoordinator: Coordinator {
 
     func createOverridesViewController() -> AssetDefinitionsOverridesViewController {
         let vc = AssetDefinitionsOverridesViewController()
-        //hhh localize
-        vc.title = "TBML Overrides"
+        vc.title = R.string.localizable.aHelpTbmlOverridesTitle()
         vc.delegate = self
         configure(overridesViewController: vc)
         viewControllers.append(WeakRef(object: vc))

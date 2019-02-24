@@ -132,9 +132,7 @@ class SettingsViewController: FormViewController {
         }.cellSetup { cell, _ in
             cell.imageView?.tintColor = Colors.appBackground
         }.cellUpdate { cell, _ in
-            //hhh localize
-//            cell.textLabel?.text = "    \(R.string.localizable.aHelpAssetDefinitionOverridesTitle())"
-            cell.textLabel?.text = "    TBML Overrides"
+            cell.textLabel?.text = "    \(R.string.localizable.aHelpTbmlOverridesTitle())"
             cell.accessoryType = .disclosureIndicator
         }
 

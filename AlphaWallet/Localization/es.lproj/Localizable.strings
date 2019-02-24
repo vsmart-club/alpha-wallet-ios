@@ -236,6 +236,7 @@
 "a.wallet.no.tokens" = "No tienes ningún token";
 "a.help.navigation.title" = "Ayuda y preguntas frecuentes";
 "a.help.assetDefinitionOverrides.title" = "Asset Definition Overrides";
+"a.help.tbmlOverrides.title" = "TBML Overrides";
 "a.help.contact.footer.button.title" = "¿Sigues necesitando ayuda? Contacta con nosotros";
 "a.help.contact.email.subject" = "Ayuda/Comentarios de AlphaWallet";
 "a.help.contact.email.helpfulToDevelopers" = "Información útil para desarrolladores:";
