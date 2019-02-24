@@ -2,7 +2,6 @@
 
 import Foundation
 
-//hhh look for AsssetDefinition-xxx
 class TbmlStoreCoordinator: Coordinator {
     private class WeakRef<T: AnyObject> {
         weak var object: T?
