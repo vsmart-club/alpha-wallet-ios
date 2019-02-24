@@ -228,7 +228,6 @@ class TokenCardRowView: UIView {
 			nativelyRenderedAttributeViews.hideAll()
 			tbmlView.isHidden = false
 			let html = viewModel.tbmlHtmlString
-			//hhh when scrolling, takes some time to refresh to correct value
 			tbmlView.webView.loadHTMLString(html, baseURL: nil)
 			//TODO not good to explicitly check for different types. Easy to miss
 			if let viewModel = viewModel as? TokenCardRowViewModel {
